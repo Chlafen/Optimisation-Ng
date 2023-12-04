@@ -1,43 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {User, UsersService} from "../users.service";
-import * as ChartJs from 'chart.js/auto';
+import { Component, OnInit } from '@angular/core';
+import { User, UsersService } from '../users.service';
+import { Observable, map } from 'rxjs';
 @Component({
   selector: 'app-rh',
   templateUrl: './rh.component.html',
-  styleUrls: ['./rh.component.css']
+  styleUrls: ['./rh.component.css'],
 })
-export class RhComponent implements OnInit {
-  oddUsers: User[];
-  evenUsers: User[];
+export class RhComponent {
+  oddUsers$: Observable<User[]>;
+  evenUsers$: Observable<User[]>;
+  oddCount$: Observable<number>;
+  evenCount$: Observable<number>;
   chart: any;
   constructor(private userService: UsersService) {
-    this.oddUsers = this.userService.getOddOrEven(true);
-    this.evenUsers = this.userService.getOddOrEven();
-  }
-
-  ngOnInit(): void {
-        this.createChart();
-    }
-  addUser(list: User[], newUser: string) {
-    this.userService.addUser(list, newUser);
-  }
-  createChart(){
-    const data = [
-      { users: 'Workers', count: this.oddUsers.length },
-      { users: 'Boss', count: this.evenUsers.length },
-    ];
-    this.chart = new ChartJs.Chart("MyChart",
-    {
-      type: 'bar',
-        data: {
-          labels: data.map(row => row.users),
-        datasets: [
-        {
-          label: 'Entreprise stats',
-          data: data.map(row => row.count)
-        }
-      ]
-    }
-    });
+    this.oddUsers$ = this.userService.oddUsers$;
+    this.evenUsers$ = this.userService.evenUsers$;
+    this.oddCount$ = this.oddUsers$.pipe(map((users) => users.length || 0));
+    this.evenCount$ = this.evenUsers$.pipe(map((users) => users.length || 0));
   }
 }
