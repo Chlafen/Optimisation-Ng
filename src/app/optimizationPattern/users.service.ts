@@ -1,38 +1,30 @@
 import { Injectable } from '@angular/core';
 import { faker } from '@faker-js/faker';
-import { BehaviorSubject, map } from 'rxjs';
 export interface User {
-  name: string;
-  age: number;
+  name: string,
+  age: number
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class UsersService {
-  usersBS: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
-  users$ = this.usersBS.asObservable();
-  evenUsers$ = this.users$.pipe(
-    map((users) => users.filter((user) => user.age % 2 == 0))
-  );
-  oddUsers$ = this.users$.pipe(
-    map((users) => users.filter((user) => user.age % 2 != 0))
-  );
+  users: User[] = [];
   constructor() {
-    let fakeUsers: User[] = [];
-    for (let i = 0; i < 50; i++) {
-      fakeUsers.push({
-        name: faker.name.firstName(),
-        age: faker.datatype.number({ min: 18, max: 30 }),
+    for (let i = 0; i < 50; i++)
+      this.users.push({
+        name: faker.name.fullName(),
+        age: faker.datatype.number({ min: 18, max: 30 })
       });
-    }
-    this.usersBS.next(fakeUsers);
   }
-
+  getOddOrEven(isOdd = false): User[] {
+    return this.users.filter((user) => !!(user.age % 2) == isOdd);
+  }
   addUser(list: User[], name: string) {
-    list.unshift({
+    const newUser = {
       name,
-      age: faker.datatype.number({ min: 18, max: 30 }),
-    });
+      age: faker.datatype.number({ min: 18, max: 30 })
+    };
+    this.users.unshift(newUser);
   }
 }

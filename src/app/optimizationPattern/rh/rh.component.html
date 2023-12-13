@@ -1,18 +1,19 @@
-<app-chart
-  [evenCount]="(evenCount$ | async) || 0"
-  [oddCount]="(oddCount$ | async) || 0"
-></app-chart>
-
+<div class="chart-container">
+  <canvas id="MyChart">{{ chart }}</canvas>
+</div>
 <div class="row">
   <div class="col">
     <app-user-list
-      [users]="(oddUsers$ | async) || []"
+      (add)="addUser(oddUsers, $event)"
+      [users]="oddUsers"
       [usersCluster]="'Boss'"
+
     ></app-user-list>
   </div>
   <div class="col">
     <app-user-list
-      [users]="(evenUsers$ | async) || []"
+      (add)="addUser(evenUsers, $event)"
+      [users]="evenUsers"
       [usersCluster]="'Workers'"
     ></app-user-list>
   </div>

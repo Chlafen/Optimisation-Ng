@@ -19,7 +19,6 @@ import { ParentComponent } from './components/parent/parent.component';
 import { FilsComponent } from './components/fils/fils.component';
 import { RhComponent } from './optimizationPattern/rh/rh.component';
 import { UserListComponent } from './optimizationPattern/user-list/user-list.component';
-import { ChartComponent } from './optimizationPattern/chart/chart.component';
 import { FiboPipe } from './pipes/fibo.pipe';
 
 @NgModule({
@@ -37,7 +36,6 @@ import { FiboPipe } from './pipes/fibo.pipe';
     FilsComponent,
     RhComponent,
     UserListComponent,
-    ChartComponent,
     FiboPipe,
   ],
   imports: [

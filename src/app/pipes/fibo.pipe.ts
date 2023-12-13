@@ -4,10 +4,9 @@ import memo from 'memo-decorator';
 
 @Pipe({
   name: 'fibo',
-  pure: true,
 })
 export class FiboPipe implements PipeTransform {
-  // @memo()
+  @memo()
   transform(n: number): number {
     return this.fibonnaci(n);
   }
