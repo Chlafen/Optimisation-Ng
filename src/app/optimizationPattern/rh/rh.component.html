@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col">
     <app-user-list
-      (add)="addUser(oddUsers, $event)"
+      (add)="addUser($event)"
       [users]="oddUsers"
       [usersCluster]="'Boss'"
 
@@ -12,7 +12,7 @@
   </div>
   <div class="col">
     <app-user-list
-      (add)="addUser(evenUsers, $event)"
+      (add)="addUser($event)"
       [users]="evenUsers"
       [usersCluster]="'Workers'"
     ></app-user-list>

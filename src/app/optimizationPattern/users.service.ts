@@ -20,7 +20,7 @@ export class UsersService {
   getOddOrEven(isOdd = false): User[] {
     return this.users.filter((user) => !!(user.age % 2) == isOdd);
   }
-  addUser(list: User[], name: string) {
+  addUser(name: string) {
     const newUser = {
       name,
       age: faker.datatype.number({ min: 18, max: 30 })

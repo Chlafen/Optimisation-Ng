@@ -47,9 +47,9 @@ export class RhComponent implements OnInit {
     ];
     return data;
   }
-  addUser(list: User[], newUser: string) {
+  addUser(newUser: string) {
     console.log("Hi")
-    this.userService.addUser(list, newUser);
+    this.userService.addUser(newUser);
     this.oddUsers = [...this.userService.getOddOrEven(true)];
     this.evenUsers = [...this.userService.getOddOrEven(false)];
     const data = this.getData();
